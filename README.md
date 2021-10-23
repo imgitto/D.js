@@ -4,10 +4,10 @@ D.js is javascript library to create views.
 Have a look at sample code in src folder.
 <br>
 
-<br>
-
 <h4>Create Counter Component : (Counter.js)</h4>
-Object with state(to handle stateful data), data(static data), action(functions), lifecycle, render.
+
+Object with state to handle stateful data, data for static data, action, lifecycle, render
+
 ```jsx
 export default D.component({
   state:({props})=>{
