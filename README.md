@@ -132,7 +132,6 @@ export default D.component({
 });
 ```
 
-
 <h4>Example for D.Switch and D.Case</h4>
 
 ```jsx
