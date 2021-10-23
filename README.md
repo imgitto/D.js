@@ -1,5 +1,7 @@
 # D.js
+
 D.js is javascript library to create views.
+
 <br>
 Have a look at sample code in src folder.
 <br>
