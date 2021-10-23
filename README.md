@@ -4,6 +4,22 @@ D.js is javascript library to create views.
 Have a look at sample code in src folder.
 <br>
 
+<h4>Create App</h4>
+
+```jsx
+import Counter from "./Counter.js";
+
+function render(){
+	return (
+		<div className="app">
+			<Counter/>
+		</div>
+	);
+}
+D.createApp({render}).mount("#app");
+```
+<br>
+
 <h4>Create Counter Component : (Counter.js)</h4>
 
 Object with state to handle stateful data, data for static data, action, lifecycle, render
@@ -45,22 +61,6 @@ export default D.component({
     }
   }
 }); 
-```
-
-
-<h4>Create App</h4>
-
-```jsx
-import Counter from "./Counter.js";
-
-function render(){
-return (
-	<div className="app">
-			<Counter/>
-		</div>
-	);
-}
-D.createApp({render}).mount("#app");
 ```
 
 <h2>Default Components</h2>
