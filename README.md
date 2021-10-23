@@ -180,5 +180,3 @@ export default D.component({
 	lifecycle
 });
 ```
-
-
