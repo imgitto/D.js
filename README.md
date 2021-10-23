@@ -7,7 +7,7 @@ Have a look at sample code in src folder.
 <br>
 
 <h4>Create Counter Component : (Counter.js)</h4>
-<p>Object with state(to handle stateful data), data(static data), action(functions), lifecycle, render.</p>
+Object with state(to handle stateful data), data(static data), action(functions), lifecycle, render.
 ```jsx
 export default D.component({
   state:({props})=>{
