@@ -48,6 +48,7 @@ export default D.component({
 ```
 
 <h4>Create App</h4>
+
 ```jsx
 import Counter from "./Counter.js";
 
@@ -65,6 +66,7 @@ D.createApp({render}).mount("#app");
 <h2>Default Components</h2>
 
 <h4>Example for D.ForEach and D.If</h4>
+
 ```jsx
 function state({props}){
 	return {
