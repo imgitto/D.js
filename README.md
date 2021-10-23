@@ -6,6 +6,8 @@ Have a look at sample code in src folder.
 
 <h4>Create App</h4>
 
+Create App using D.CreateApp method and pass  object with render, state, data, action, lifecycle propeties.
+
 ```jsx
 import Counter from "./Counter.js";
 
@@ -18,7 +20,6 @@ function render(){
 }
 D.createApp({render}).mount("#app");
 ```
-<br>
 
 <h4>Create Counter Component : (Counter.js)</h4>
 
