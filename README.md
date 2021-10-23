@@ -51,7 +51,6 @@ export default D.component({
 <h4>Create App</h4>
 
 ```jsx
-
 import Counter from "./Counter.js";
 
 function render(){
@@ -61,7 +60,6 @@ return (
 		</div>
 	);
 }
-
 D.createApp({render}).mount("#app");
 ```
 
