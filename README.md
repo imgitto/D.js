@@ -20,7 +20,6 @@ function render(){
 }
 D.createApp({render}).mount("#app");
 ```
-
 <h4>Create Counter Component : (Counter.js)</h4>
 
 Object with state to handle stateful data, data for static data, action, lifecycle, render
