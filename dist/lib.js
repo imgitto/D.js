@@ -411,8 +411,6 @@ const D = {};
 
 							}	else {
 
-								console.log({isPrevFragment,parent,el},children[i]);
-
 								__internal.patch({
 									parent: el, 
 									patches:children[i],
@@ -441,6 +439,8 @@ const D = {};
 				}
 			}
 		}
+
+
 
 
 		__internal.patchThePatches = ({parent, patches, index=0, level=0, adjustIndex=[0]}) => {
@@ -543,6 +543,8 @@ const D = {};
 				let _proxy = null;
 				let _data = null;
 
+				let _rerender_timeout = null;
+
 				const _state_handler = {
 					set: function (target, prop, receiver) {
 						Reflect.set(...arguments);
@@ -552,36 +554,43 @@ const D = {};
 				};
 
 				function rerender(){
-
-					__internal.runLifecycle({_lifecycle, name:"beforeUpdate"});
-
-					let _nvdom = render({
-						state:_proxy,
-						action:_action,
-						props:_props,
-						data:_data
-					});
-					let patches = __internal.diff({
-						newNode:_nvdom, 
-						oldNode:_vdom
-					});
-
-					console.log({patches});
-
-					let parent = _container.parentNode;
-
-					let index = [..._container.parentElement.childNodes].indexOf(_container);
-					__internal.patchThePatches({
-						parent, 
-						patches, 
-						index
-					});
-					if(typeof _lifecycle.afterUpdate === "function"){
-						_lifecycle.afterUpdate(_proxy);
+					if(_rerender_timeout !== null){
+						clearTimeout(_rerender_timeout);
 					}
-					_vdom = _nvdom;
+					_rerender_timeout = setTimeout(()=>{					
+						__internal.runLifecycle({_lifecycle, name:"beforeUpdate"});
 
-					__internal.runLifecycle({_lifecycle, name:"afterUpdate"});
+						let _nvdom = render({
+							state:_proxy,
+							action:_action,
+							props:_props,
+							data:_data
+						});
+						let patches = __internal.diff({
+							newNode:_nvdom, 
+							oldNode:_vdom
+						});
+
+						console.log({patches});
+
+						let parent = _container.parentNode;
+
+						let index = [..._container.parentElement.childNodes].indexOf(_container);
+						__internal.patchThePatches({
+							parent, 
+							patches, 
+							index
+						});
+						if(typeof _lifecycle.afterUpdate === "function"){
+							_lifecycle.afterUpdate(_proxy);
+						}
+						_vdom = _nvdom;
+
+						__internal.runLifecycle({_lifecycle, name:"afterUpdate"});
+
+						_rerender_timeout = null;
+
+					},0);
 				}
 
 				function mount(container){
@@ -674,6 +683,8 @@ const D = {};
 				let props = null;
 				let _data = null;
 
+				let _rerender_timeout = null;
+
 				const _state_handler = {
 					set: function (target, prop, receiver) {
 						Reflect.set(...arguments);
@@ -683,23 +694,28 @@ const D = {};
 				};
 
 				function rerender(){
-					__internal.runLifecycle({_lifecycle, name:"beforeUpdate"});
+					if(_rerender_timeout !== null){
+						clearTimeout(_rerender_timeout);
+					}
+					_rerender_timeout = setTimeout(()=>{
+						__internal.runLifecycle({_lifecycle, name:"beforeUpdate"});
 
-					let _nvdom = render({
-						state:_proxy,
-						action:_action
-					});
-					let patches = __internal.diff({
-						newNode:_nvdom, 
-						oldNode:_vdom
-					});
-					patchThePatches({
-						parent:_container, 
-						patches
-					});
-					_vdom = _nvdom;
+						let _nvdom = render({
+							state:_proxy,
+							action:_action
+						});
+						let patches = __internal.diff({
+							newNode:_nvdom, 
+							oldNode:_vdom
+						});
+						patchThePatches({
+							parent:_container, 
+							patches
+						});
+						_vdom = _nvdom;
 
-					__internal.runLifecycle({_lifecycle, name:"afterUpdate"});
+						__internal.runLifecycle({_lifecycle, name:"afterUpdate"});
+					},0);
 				}
 
 				function mount(container){
