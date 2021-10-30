@@ -659,7 +659,7 @@ const D = {};
 				let _vdom = null;
 				let _proxy = null;
 				let _action = null;
-				let props = null;
+				let _props = null;
 				let _data = null;
 
 				let _rerender_timeout = null;
