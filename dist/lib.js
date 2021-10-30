@@ -2,17 +2,16 @@ const D = {};
 (()=>{
 	const __internal = {};
 	((__internal)=>{
+		__internal.componentList = [];
 
-		const CREATE_NODE = Symbol('CREATE_NODE');
-		const REMOVE_NODE = Symbol('REMOVE_NODE');
-		const REPLACE_NODE = Symbol('REPLACE_NODE');
-		const UPDATE_NODE = Symbol('UPDATE_NODE');
-
-		const SET_PROP = Symbol('SET_PROP');
-		const REMOVE_PROP = Symbol('REMOVE PROP');
-		const UPDATE_LISTENER_PROP = Symbol('UPDATE_LISTENER_PROP');
-
-		const FRAGMENT = Symbol("FRAGMENT_NODE");
+		const CREATE_NODE = Symbol('CREATE_NODE'),
+					REMOVE_NODE = Symbol('REMOVE_NODE'),
+					REPLACE_NODE = Symbol('REPLACE_NODE'),
+					UPDATE_NODE = Symbol('UPDATE_NODE'),
+					SET_PROP = Symbol('SET_PROP'),
+					REMOVE_PROP = Symbol('REMOVE PROP'),
+					UPDATE_LISTENER_PROP = Symbol('UPDATE_LISTENER_PROP'),
+					FRAGMENT = Symbol("FRAGMENT_NODE");
 
 
 		__internal.flatten = (arr) => {
@@ -27,18 +26,13 @@ const D = {};
 			props = props || {};
 			children = __internal.flatten(children);
 
-			// props.children = children;
-
-			switch(type){
-				case (D.If):
-				case (D.ForEach):
-				case (D.Switch):
-				case (D.Case):
-					return type({
-						props:props,
-						children:children
-					});	
+			if(__internal.componentList.includes(type)){
+				return type({
+					props:props,
+					children:children
+				});	
 			}
+
 			return {
 				type,
 				props,
@@ -212,17 +206,6 @@ const D = {};
 				return node.children.map((childNode)=>{
 					return __internal.createElement({node:childNode,parent});
 				})
-				// .forEach((childNodes)=>{
-				// 	if(Array.isArray(childNodes)){
-				// 		childNodes.forEach((childNode)=>{
-				// 			if(childNode !== null){
-				// 				parent.appendChild(childNode);
-				// 			}
-				// 		});
-				// 	} else if(childNodes !== null){
-				// 		parent.appendChild(childNodes);
-				// 	}
-				// });
 				return null;
 			}
 
@@ -286,7 +269,6 @@ const D = {};
 		}
 
 		__internal.setProps = ({target, props}) => {
-			//console.log({target,props});
 			Object.keys(props).forEach(name => {
 				__internal.setProp({
 					target, 
@@ -571,8 +553,6 @@ const D = {};
 							oldNode:_vdom
 						});
 
-						console.log({patches});
-
 						let parent = _container.parentNode;
 
 						let index = [..._container.parentElement.childNodes].indexOf(_container);
@@ -620,7 +600,6 @@ const D = {};
 					_proxy = null;
 					_data = null;
 
-					// debugger;
 				}
 
 				function setProps(props){
@@ -848,6 +827,8 @@ const D = {};
 				children:children
 			};
 		}
+
+		__internal.componentList = [...__internal.componentList, D.If, D.ForEach, D.Switch, D.Case];
 
 	})(__internal);
 	
